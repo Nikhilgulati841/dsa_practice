@@ -1,19 +1,26 @@
-def main():
-    global tasks_list
-    global yes_no_score
-    # yes_dict={"Study":22,"Revision":10,"New learn":7,"Meditation":7,"Health":8,"Exercise":8,"Work":7,"Time Waste":10,"Anger":10,"Maas":10,"Hazard":8}
-    # no_dict={"Study":-25,"Revision":-8,"New learn":0,"Meditation":-8,"Health":-12,"Exercise":-9,"Work":-8,"Time Waste":-25,"Anger":-15,"Maas":-7,"Hazard":-10}
+
+# yes_dict={"Study":22,"Revision":10,"New learn":7,"Meditation":7,"Health":8,"Exercise":8,"Work":7,"Time Waste":10,"Anger":10,"Maas":10,"Hazard":8}
+# no_dict={"Study":-25,"Revision":-8,"New learn":0,"Meditation":-8,"Health":-12,"Exercise":-9,"Work":-8,"Time Waste":-25,"Anger":-15,"Maas":-7,"Hazard":-10}
 
 tasks_list=["Study","Revision","New learn","Meditation","Health","Exercise","Work","Time Waste","Anger","Maas","Hazard"]
-yes_no_score={"Study":{"Yes":22,"No":-25},"Revision":{"Yes":10,"No":-8},"New learn":{"Yes":7,"No":0},"Meditation":{"Yes":7,"No":-8},"Health":{"Yes":8,"No":-12},"Exercise":{"Yes":8,"No":-9},
-                "Work":{"Yes":7,"No":-8},"Time Waste":{"No":10,"Yes":-25},"Anger":{"No":10,"Yes":-15},"Maas":{"No":10,"Yes":-7},"Hazard":{"No":8,"Yes":-10}}
+yes_no_score={"Study":{"Yes":22,"No":-25},
+              "Revision":{"Yes":10,"No":-8},
+              "New learn":{"Yes":7,"No":0},
+              "Meditation":{"Yes":7,"No":-8},
+              "Health":{"Yes":8,"No":-12},
+              "Exercise":{"Yes":8,"No":-9},
+              "Work":{"Yes":7,"No":-8},
+              "Time Waste":{"No":10,"Yes":-25},
+              "Anger":{"No":10,"Yes":-15},
+              "Maas":{"No":10,"Yes":-7},
+              "Hazard":{"No":8,"Yes":-10}}
 
 score=[]
-weightage={}
+weightage=[]
 
 print("\nChoose Yes | No\n")
 for i in range(len(tasks_list)):
-    ask=input(f"Enter for {tasks_list[i]}: ")
+    ask=input(f"Done with |{tasks_list[i]}|- ")
     if ask.lower()=="yes":
         score.append(yes_no_score[tasks_list[i]]["Yes"])
         
@@ -27,10 +34,44 @@ Maximum Negative Score: -127
 ----------------------------\n""")
 
 print(f"Your Score: {sum(score)}\n")
-print("--The weightage for each Task--\n")
+print("--The weightage for each Task--")
+
+total_positive_negative=0
+for i in range(len(tasks_list)):
+    positive=yes_no_score[tasks_list[i]]["Yes"]
+    negative=yes_no_score[tasks_list[i]]["No"]
+    total_positive_negative+=abs(positive)+abs(negative)
+
+# print(f"\n{total}\n")
 
 for i in range(len(score)):
-    if score[i]<0:
+    positive=yes_no_score[tasks_list[i]]["Yes"]
+    negative=yes_no_score[tasks_list[i]]["No"]
+    weightage.append(round((abs(positive)+abs(negative))*(100/total_positive_negative),2))
+
+# print("""
+# ==> If 
+# \n""")
+    
+for i in range(len(tasks_list)):
+    print(f"Impacted Percentage of {tasks_list[i]}: {weightage[i]}%")
         
 
+# print(round((yes_no_score["Study"]["Yes"]+abs(yes_no_score["Study"]["No"]))*(100/107),2))
 
+# print(sum(weightage))
+
+# bubble sort
+
+n=len(weightage)
+
+for i in range(n):
+    for j in range(0,n-i-1):
+        if weightage[j]<weightage[j+1]:
+            weightage[j],weightage[j+1]=weightage[j+1],weightage[j]
+            tasks_list[j],tasks_list[j+1]=tasks_list[j+1],tasks_list[j]
+
+print("\nSorted List\n")
+
+for i in range(len(tasks_list)):
+    print(f"Impacted Percentage of {tasks_list[i]}: {weightage[i]}%")
