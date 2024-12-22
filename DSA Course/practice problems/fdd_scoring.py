@@ -28,36 +28,44 @@ for i in range(len(tasks_list)):
         score.append(yes_no_score[tasks_list[i]]["No"])
     
 
-print("""\n----------------------------
-Maximum Positive Score: 107
-Maximum Negative Score: -127
-----------------------------\n""")
 
-print(f"Your Score: {sum(score)}\n")
+
+print(f"\nYour Score: {sum(score)}\n")
 print("--The weightage for each Task--")
 
 negative_total=0
-for i in range(len(tasks_list)):
+for i in range(len(tasks_list)):   # negative is when the score is not increasing but decreasing[eg, study-no, no addition of 22, deduction of 25 ]
     positive=yes_no_score[tasks_list[i]]["Yes"]
     negative=yes_no_score[tasks_list[i]]["No"]
-    negative_total+=abs(positive)+abs(negative)
+    negative_total+=abs(positive)+abs(negative)  # this is why in the negative case, using the positive and negative both to get the weightage
 
 positive_total=0
 for i in range(len(tasks_list)):
     positive=yes_no_score[tasks_list[i]]["Yes"]
     negative=yes_no_score[tasks_list[i]]["No"]
-    positive_total+=abs(positive)
+    if tasks_list[i]=="Time Waste" or tasks_list[i]=="Anger" or tasks_list[i]=="Maas" or tasks_list[i]=="Hazard":
+        positive_total+=negative  #as for the above options, choosing no is the right answer.
+    else:
+        positive_total+=abs(positive)
 
-# print(f"\n{total}\n")
+# print(f"\n{positive_total}\n")
 
 for i in range(len(score)):
     positive=yes_no_score[tasks_list[i]]["Yes"]
     negative=yes_no_score[tasks_list[i]]["No"]
-    if 
+    if yes_no_score[tasks_list[i]][ask.capitalize()]<0:
+        weightage.append(round((abs(positive)+abs(negative))*(100/negative_total),2))
+    if yes_no_score[tasks_list[i]][ask.capitalize()]>=0:
+        weightage.append(round((abs(positive)+abs(negative))*(100/positive_total),2))
 
 # print("""
 # ==> If 
 # \n""")
+
+print(f"""\n----------------------------
+Maximum Positive Score: {positive_total}
+Maximum Negative Score: {-negative_total+positive_total}
+----------------------------\n""")
     
 for i in range(len(tasks_list)):
     print(f"Impacted Percentage of {tasks_list[i]}: {weightage[i]}%")
