@@ -30,7 +30,7 @@ for i in range(len(tasks_list)):
 
 
 
-print(f"\nYour Score: {sum(score)}\n")
+print(f"\nYOU SCORE: |||{sum(score)}|||\n")
 print("--The weightage for each Task--")
 
 negative_total=0
@@ -71,7 +71,7 @@ Maximum Negative Score: {-negative_total+positive_total}
 ----------------------------\n""")
     
 for i in range(len(tasks_list)):
-    print(f"Impacted Percentage of {tasks_list[i]}: {weightage[i]}%")
+    print(f"==>Imapcted the Score by {score[i]} || Weightage of {tasks_list[i]}: {weightage[i]}% ||")
         
 
 # print(round((yes_no_score["Study"]["Yes"]+abs(yes_no_score["Study"]["No"]))*(100/107),2))
@@ -87,10 +87,17 @@ for i in range(n):
         if weightage[j]<weightage[j+1]:
             weightage[j],weightage[j+1]=weightage[j+1],weightage[j]
             tasks_list[j],tasks_list[j+1]=tasks_list[j+1],tasks_list[j]
+            score[j],score[j+1]=score[j+1],score[j]
 
-print("\nSorted List\n")
+print("\nSorted List of Weightage\n")
 
 for i in range(len(tasks_list)):
-    print(f"Impacted Percentage of {tasks_list[i]}: {weightage[i]}%")
+    if score[i]<=0:
+        if tasks_list[i]=="Time Waste" or tasks_list[i]=="Anger" or tasks_list[i]=="Maas" or tasks_list[i]=="Hazard":
+            print(f"==>Imapcted the Score by {score[i]} || Weightage of {tasks_list[i]}: {weightage[i]}% || Positive:{yes_no_score[tasks_list[i]]["No"]}")
 
+        else:
+            print(f"==>Imapcted the Score by {score[i]} || Weightage of {tasks_list[i]}: {weightage[i]}% || Positive:{yes_no_score[tasks_list[i]]["Yes"]}")
+    else:
+        print(f"==>Imapcted the Score by {score[i]} || Weightage of {tasks_list[i]}: {weightage[i]}% ||")
 print(f"\nWeightage - {sum(weightage)}\n")
