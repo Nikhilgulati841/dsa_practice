@@ -46,17 +46,20 @@ for i in range(len(tasks_list)):
     if tasks_list[i]=="Time Waste" or tasks_list[i]=="Anger" or tasks_list[i]=="Maas" or tasks_list[i]=="Hazard":
         positive_total+=negative  #as for the above options, choosing no is the right answer.
     else:
-        positive_total+=abs(positive)
+        positive_total+=abs(positive)  #for all the rest, Yes : positive
 
 # print(f"\n{positive_total}\n")
 
 for i in range(len(score)):
     positive=yes_no_score[tasks_list[i]]["Yes"]
     negative=yes_no_score[tasks_list[i]]["No"]
-    if yes_no_score[tasks_list[i]][ask.capitalize()]<0:
+    if score[i]<=0:
         weightage.append(round((abs(positive)+abs(negative))*(100/negative_total),2))
-    if yes_no_score[tasks_list[i]][ask.capitalize()]>=0:
-        weightage.append(round((abs(positive)+abs(negative))*(100/positive_total),2))
+    elif score[i]>0:
+        if tasks_list[i]=="Time Waste" or tasks_list[i]=="Anger" or tasks_list[i]=="Maas" or tasks_list[i]=="Hazard":
+            weightage.append(round((abs(negative))*(100/positive_total),2))
+        else:
+            weightage.append(round((abs(positive))*(100/positive_total),2))
 
 # print("""
 # ==> If 
@@ -89,3 +92,5 @@ print("\nSorted List\n")
 
 for i in range(len(tasks_list)):
     print(f"Impacted Percentage of {tasks_list[i]}: {weightage[i]}%")
+
+print(f"\nWeightage - {sum(weightage)}\n")
