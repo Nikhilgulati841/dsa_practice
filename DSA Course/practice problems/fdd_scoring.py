@@ -36,18 +36,24 @@ Maximum Negative Score: -127
 print(f"Your Score: {sum(score)}\n")
 print("--The weightage for each Task--")
 
-total_positive_negative=0
+negative_total=0
 for i in range(len(tasks_list)):
     positive=yes_no_score[tasks_list[i]]["Yes"]
     negative=yes_no_score[tasks_list[i]]["No"]
-    total_positive_negative+=abs(positive)+abs(negative)
+    negative_total+=abs(positive)+abs(negative)
+
+positive_total=0
+for i in range(len(tasks_list)):
+    positive=yes_no_score[tasks_list[i]]["Yes"]
+    negative=yes_no_score[tasks_list[i]]["No"]
+    positive_total+=abs(positive)
 
 # print(f"\n{total}\n")
 
 for i in range(len(score)):
     positive=yes_no_score[tasks_list[i]]["Yes"]
     negative=yes_no_score[tasks_list[i]]["No"]
-    weightage.append(round((abs(positive)+abs(negative))*(100/total_positive_negative),2))
+    weightage.append(round((abs(positive)+abs(negative))*(100/negative_total),2))
 
 # print("""
 # ==> If 
