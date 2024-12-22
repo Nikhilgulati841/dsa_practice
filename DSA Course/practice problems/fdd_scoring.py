@@ -53,7 +53,7 @@ for i in range(len(tasks_list)):
 for i in range(len(score)):
     positive=yes_no_score[tasks_list[i]]["Yes"]
     negative=yes_no_score[tasks_list[i]]["No"]
-    weightage.append(round((abs(positive)+abs(negative))*(100/negative_total),2))
+    if 
 
 # print("""
 # ==> If 
