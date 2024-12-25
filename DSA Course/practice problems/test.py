@@ -1,6 +1,4 @@
 
-def user_input():
-    
 
 def main():
     task_list=["Study","Revision","New learn","Meditation","Health","Exercise","Work","Time Waste","Anger","Maas","Hazard"]
@@ -16,8 +14,6 @@ def main():
               "Anger":{"No":10,"Yes":-15},
               "Maas":{"No":10,"Yes":-7},
               "Hazard":{"No":8,"Yes":-10}}
-    
-
     
 
 
