@@ -37,7 +37,7 @@ def calculate_weightage(task_list,yes_no_score,score):
         negative=yes_no_score[task_list[i]]["No"]
      
         if score[i]>0:
-            weightage.append(round((score[i])*(100/sum(positive_list),2)))
+            weightage.append(round(score[i]*(100/sum(positive_list)),2))
         elif score[i]<=0:
             total_part_points=abs(negative)+abs(positive)
             weightage.append(round(total_part_points*(100/sum(positive_list)),2))
@@ -61,7 +61,7 @@ def main():
               "Hazard":{"No":8,"Yes":-10}}
     # score=calculate_score(task_list,yes_no_score)
     score=calculate_score(task_list,yes_no_score)
-    negative_list, positive_list, weightage=calculate_weightage(task_list,yes_no_score,score)
+    weightage, positive_list, negative_list=calculate_weightage(task_list,yes_no_score,score)
     print(f"Your Score: {sum(score)}\n")
     print(f"""\n----------------------------
 Maximum Positive Score: {sum(positive_list)}
