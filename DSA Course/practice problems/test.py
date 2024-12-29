@@ -38,12 +38,46 @@ def calculate_weightage(task_list,yes_no_score,score):
      
         if score[i]>0:
             weightage.append(round(score[i]*(100/sum(positive_list)),2))
+            
         elif score[i]<=0:
             total_part_points=abs(negative)+abs(positive)
             weightage.append(round(total_part_points*(100/sum(positive_list)),2))
             
+            
     return weightage, positive_list, negative_list
-
+    
+def bubble_sort_weightage(weightage,task_list,score):
+    n=len(task_list)
+    for i in range(n):
+        for j in range(0,n-i-1):
+            if weightage[j]<weightage[j+1]:
+                weightage[j], weightage[j+1]=weightage[j+1], weightage[j]
+                task_list[j], task_list[j+1]=task_list[j+1], task_list[j]
+                score[j], score[j+1]=score[j+1], score[j]
+            
+    return weightage, task_list, score
+    
+def display_results(weightage,task_list,score,positive_list,negative_list,yes_no_score):
+    print(f"\nYour Score: {sum(score)}\n")
+    print(f"""\n----------------------------
+Maximum Positive Score: {sum(positive_list)}
+Maximum Negative Score: {sum(negative_list)}
+----------------------------\n""")
+    print("--From the most weightated task to the lowest weightated--\n")
+  
+    for i in range(len(task_list)):
+        if score[i]>0:
+            print(f"|| Your choosen option gives {task_list[i]}'s Score: {score[i]} ||| Which Impacts your Today's by {weightage[i]}% ||| ")
+        else:
+            positive=yes_no_score[task_list[i]]["Yes"]
+            negative=yes_no_score[task_list[i]]["No"]
+            if task_list[i] in ["Time Waste","Anger","Maas","Hazard"]:
+                print(f"|| Your choosen option gives {task_list[i]}'s Score: {score[i]} ||| Which Impacts your Today's score by {weightage[i]}% |||\nAs here ==> Score is subtracted by {score[i]} and Positive part|{negative}| also does not adds up to Today's score\n")
+            
+            else:
+                print(f"|| Your choosen option gives {task_list[i]}'s Score: {score[i]} ||| Which Impacts the score by {weightage[i]}% |||\nAs here ==> Score is subtracted by {score[i]} and Positive part|{positive}| also does not adds up to Today's score\n")
+            
+    print(f"\nTotal Weightage: {sum(weightage)}")
 
 def main():
     task_list=["Study","Revision","New learn","Meditation","Health","Exercise","Work","Time Waste","Anger","Maas","Hazard"]
@@ -62,16 +96,10 @@ def main():
     # score=calculate_score(task_list,yes_no_score)
     score=calculate_score(task_list,yes_no_score)
     weightage, positive_list, negative_list=calculate_weightage(task_list,yes_no_score,score)
-    print(f"Your Score: {sum(score)}\n")
-    print(f"""\n----------------------------
-Maximum Positive Score: {sum(positive_list)}
-Maximum Negative Score: {sum(negative_list)}
-----------------------------\n""")
-    print("--The weightage for each Task--\n")
-    print(f"Score list: {score}")
-    print(f"negative list: {negative_list}")
-    print(f"Positive list: {positive_list}")
-    print(f"Weightage list: {weightage}")
+    
+    weightage, task_list, score=bubble_sort_weightage(weightage,task_list,score)
+    
+    display_results(weightage,task_list,score,positive_list,negative_list,yes_no_score)
 
 main()
     
